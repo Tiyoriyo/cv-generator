@@ -1,0 +1,17 @@
+.general-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: rgb(255, 96, 96);
+    padding: 1rem 2rem;
+    color: white;
+    min-height: 3rem;
+}
+
+.general-info-header {
+    font-size: 1.8rem;
+}
+
+.general-info-details {
+    font-size: 0.9rem;
+}

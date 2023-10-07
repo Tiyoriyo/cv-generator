@@ -1,0 +1,50 @@
+.experience-container,
+.experience-mainDetails-container,
+.experience-mainDetails,
+.experience-length {
+    display: flex;
+}
+
+.experience-occupation,
+.experience-grade,
+.experience-length {
+    font-style: italic;
+}
+
+.experience-container {
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.experience-mainDetails-container {
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.experience-mainDetails {
+    flex-direction: column;
+    gap: 0.2rem;
+    width: 100%;
+    padding-bottom: 0.2rem;
+}
+
+.experience-subDetails {
+    display: flex;
+    flex-direction: column;
+    text-wrap: nowrap;
+    align-items: flex-end;
+}
+
+.experience-name {
+    font-weight: bold;
+}
+
+.experience-length {
+    gap: 0.5rem;
+    color: rgb(86, 86, 86);
+}
+
+.experience-details {
+    white-space: pre-wrap;
+    padding-left: 1rem;
+}

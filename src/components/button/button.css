@@ -1,0 +1,38 @@
+.confirmBtn,
+.editBtn,
+.addBtn,
+.cancelBtn {
+    width: 5rem;
+    height: 2rem;
+    border: none;
+}
+
+.confirmBtn,
+.addBtn {
+    background: rgb(149, 240, 154);
+    box-shadow: 2px 2px 5px rgb(0, 0, 0, 0.2);
+}
+
+.confirmBtn:hover,
+.addBtn:hover {
+    background: rgb(140, 229, 145)
+}
+
+.confirmBtn:active,
+.editBtn:active,
+.addBtn:active,
+.cancelBtn:active {
+    box-shadow: none;
+}
+
+.editBtn,
+.cancelBtn {
+    box-shadow: 2px 2px 5px rgb(0, 0, 0, 0.2);
+    background-color: rgb(255, 96, 96);
+    color: white;
+}
+
+.editBtn:hover,
+.cancelBtn:hover {
+    background-color: rgb(231, 87, 87);
+}

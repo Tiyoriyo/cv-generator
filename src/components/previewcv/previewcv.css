@@ -1,0 +1,17 @@
+.preview-container {
+    display: flex;
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+.preview-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 7in;
+    height: 9.25in;
+    display: flex;
+    flex: auto;
+    box-shadow: 0 0 15px rgb(0, 0, 0, 0.2);
+    background-color: white;
+}

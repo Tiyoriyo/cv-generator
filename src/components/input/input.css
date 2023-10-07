@@ -1,0 +1,29 @@
+.input-field-double {
+    display: flex;
+    /* flex: auto; */
+    gap: 1rem;
+}
+
+.input-field {
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+}
+
+.input-box {
+    appearance: none;
+    border: 1px solid rgb(138, 138, 138);
+    padding: 0.3rem 1rem;
+}
+
+.input-box:focus {
+    outline: none;
+}
+
+.detailsTextArea {
+    display: flex;
+    flex: auto;
+    resize: vertical;
+    max-height: 20rem;
+    min-height: 1rem;
+}

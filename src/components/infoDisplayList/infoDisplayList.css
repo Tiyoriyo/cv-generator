@@ -1,0 +1,11 @@
+.info-display {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 2rem;
+    font-size: 0.7rem;
+}
+
+.info-header {
+    border-bottom: 1px solid black;
+}

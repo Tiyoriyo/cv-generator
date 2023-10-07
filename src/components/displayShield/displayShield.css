@@ -1,0 +1,27 @@
+.experience-data {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid grey;
+    padding-bottom: 0.5rem;
+}
+
+
+.experience-data:last-child {
+    border-bottom: none;
+}
+
+.experience-data:first-child {
+    border-bottom: 1px solid black;
+}
+
+.edit-icon:hover {
+    color: rgb(68, 68, 68);
+    transform: scale(1.05);
+}
+
+.icon-container {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+    gap: 0.2rem;
+}
