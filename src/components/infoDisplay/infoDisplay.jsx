@@ -40,7 +40,7 @@ export default function InfoDisplay({
     )
 }
 
-InfoDisplay.propTypes = {
+InfoDisplay.propTypes= {
     type: PropTypes.string,
     item: PropTypes.object,
     index: PropTypes.number
