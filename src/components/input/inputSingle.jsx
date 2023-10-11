@@ -41,7 +41,10 @@ InputSingle.propTypes = {
   title: PropTypes.string,
   name: PropTypes.string,
   handler: PropTypes.func,
-  data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object])),
+  data: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
   type: PropTypes.string,
 };
 
