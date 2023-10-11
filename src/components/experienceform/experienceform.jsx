@@ -25,17 +25,6 @@ export default function ExperienceForm({
   const maxDisplayShields = (type === 'work') ? 2 : 1;
   const { forceRender, setData } = handlers;
 
-  // Sets main data based on new input values
-  function inputHandler(e) {
-    const i = (isEditting) ? index : data.length - 1;
-    const children = [...data];
-    const inputFields = children[i];
-    inputFields[e.target.name] = e.target.value;
-
-    setData({ ...mainData, [type]: children });
-    setTempData({ ...inputFields });
-  }
-
   // Reset States
   function resetStates() {
     setSave(undefined);
@@ -45,14 +34,15 @@ export default function ExperienceForm({
     setState('setup');
   }
 
-  // Return queue list for map function within state 'active' render
-  function returnInputs(obj) {
-    const queue = [];
-    Object.keys(obj)
-      .forEach((prop) => {
-        queue.push(obj[prop]);
-      });
-    return queue;
+  // Sets main data based on new input values
+  function inputHandler(e) {
+    const i = (isEditting) ? index : data.length - 1;
+    const children = [...data];
+    const inputFields = children[i];
+    inputFields[e.target.name] = e.target.value;
+
+    setData({ ...mainData, [type]: children });
+    setTempData({ ...inputFields });
   }
 
   // Add Button Functionality
@@ -77,18 +67,6 @@ export default function ExperienceForm({
     resetStates();
   }
 
-  // Capitalize first letter
-  function getTitle() {
-    const title = type;
-    const result = title[0].toUpperCase() + title.substring(1);
-    return result;
-  }
-
-  // Retrieve Items Function
-  function retrieveItems(i) {
-    return data[i];
-  }
-
   // Create Item from Input
   function confirmInput() {
     const curIndex = (index !== undefined) ? index : data.length - 1;
@@ -104,6 +82,28 @@ export default function ExperienceForm({
 
     setData({ ...mainData, [type]: children });
     resetStates();
+  }
+
+  // Return queue list for map function within state 'active' render
+  function returnInputs(obj) {
+    const queue = [];
+    Object.keys(obj)
+      .forEach((prop) => {
+        queue.push(obj[prop]);
+      });
+    return queue;
+  }
+
+  // Capitalize first letter
+  function getTitle() {
+    const title = type;
+    const result = title[0].toUpperCase() + title.substring(1);
+    return result;
+  }
+
+  // Retrieve Items Function
+  function retrieveItems(i) {
+    return data[i];
   }
 
   return (
