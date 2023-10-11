@@ -1,45 +1,38 @@
-import PropTypes from 'prop-types';
-import './input.css'
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React from 'react';
+import './input.css';
 
 export default function InputSingle({
-    title,
-    name,
-    handler,
-    data,
-    type
+  title,
+  name,
+  handler,
+  data,
+  type,
 }) {
-
-    return (
-        <div className="input-field noselect" autoComplete="off">
-            <label className="input-label">
-                {title}
-            </label>
-            {type === 'textarea' && (
-                <textarea
-                    className='input-box detailsTextArea'
-                    name={name}
-                    value={data[name]}
-                    onChange={handler}
-                    rows={5}
-                />
-            )}
-            {type !== 'textarea' && (
-                <input
-                    className="input-box"
-                    name={name}
-                    value={data[name]}
-                    onChange={handler}
-                />
-            )}
-        </div>
-    )
-}
-
-InputSingle.propTypes = {
-    title: PropTypes.string,
-    name: PropTypes.string,
-    handler: PropTypes.func,
-    data: PropTypes.object,
-    isDisabled: PropTypes.bool,
-    type: PropTypes.string
+  return (
+    <div className="input-field noselect" autoComplete="off">
+      <label className="input-label">
+        {title}
+      </label>
+      {type === 'textarea' && (
+        <textarea
+          className="input-box detailsTextArea"
+          name={name}
+          value={data[name]}
+          onChange={handler}
+          rows={5}
+        />
+      )}
+      {type !== 'textarea' && (
+        <input
+          className="input-box"
+          name={name}
+          value={data[name]}
+          onChange={handler}
+        />
+      )}
+    </div>
+  );
 }

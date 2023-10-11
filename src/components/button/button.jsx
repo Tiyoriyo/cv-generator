@@ -6,7 +6,7 @@ export default function Button({ text, handler, className }) {
   return (
     <button
       className={className}
-      onClick={handler}
+      onClick={() => handler()}
       type="button"
     >
       {text}
@@ -18,4 +18,10 @@ Button.propTypes = {
   text: PropTypes.string,
   handler: PropTypes.func,
   className: PropTypes.string,
+};
+
+Button.defaultProps = {
+  text: '',
+  className: '',
+  handler: {},
 };

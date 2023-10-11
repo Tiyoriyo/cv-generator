@@ -31,25 +31,16 @@ export default function App() {
     return result;
   }
 
-  function generalInputHandler(e) {
-    const inputType = e.target.name;
-    const formType = getFormType(inputType);
-
-    const newData = data[formType];
-    newData[inputType] = e.target.value;
-    setData({ ...data, [formType]: newData });
-  }
-
   function dataSubmit(inputData, type) {
-    const newEduData = data[type];
-    newEduData.children.push(inputData);
-    setData({ ...data, [type]: newEduData });
+    const children = data[type];
+    children.push(inputData);
+    setData({ ...data, [type]: children });
   }
 
   function dataUpdate(inputData, type, index) {
-    const newEduData = data[type];
-    newEduData.children[index] = inputData;
-    setData({ ...data, [type]: newEduData });
+    const children = data[type];
+    children[index] = inputData;
+    setData({ ...data, [type]: children });
   }
 
   return (
@@ -57,7 +48,6 @@ export default function App() {
       <FormBar
         data={data}
         handlers={{
-          generalInputHandler,
           dataUpdate,
           dataSubmit,
           forceRender,

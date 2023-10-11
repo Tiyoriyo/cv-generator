@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../button/button';
@@ -9,7 +10,7 @@ import getTempDataSkeleton from './dataSkeleton';
 import './experienceform.css';
 
 export default function ExperienceForm({
-  globalData,
+  mainData,
   handlers,
   type,
 }) {
@@ -20,16 +21,28 @@ export default function ExperienceForm({
   const [isEditting, setIsEditting] = useState(false);
 
   // Variables
-  const data = globalData[type];
+  const data = mainData[type];
   const maxDisplayShields = (type === 'work') ? 2 : 1;
   const { forceRender, setData } = handlers;
 
   // Sets main data based on new input values
-  function inputHandler(e, i = data.children.length - 1) {
-    const newData = { ...data };
-    const inputFields = newData.children[i];
+  function inputHandler(e) {
+    const i = (isEditting) ? index : data.length - 1;
+    const children = [...data];
+    const inputFields = children[i];
     inputFields[e.target.name] = e.target.value;
-    setData({ ...globalData, [type]: newData });
+
+    setData({ ...mainData, [type]: children });
+    setTempData({ ...inputFields });
+  }
+
+  // Reset States
+  function resetStates() {
+    setSave(undefined);
+    setIndex(undefined);
+    setTempData(undefined);
+    setIsEditting(false);
+    setState('setup');
   }
 
   // Return queue list for map function within state 'active' render
@@ -42,44 +55,26 @@ export default function ExperienceForm({
     return queue;
   }
 
-  function getNewChildren() {
-    const { children } = data;
-    const child = getTempDataSkeleton()[type];
-    children.push(child);
-    return children;
-  }
-
+  // Add Button Functionality
   function addHandler() {
-    const children = getNewChildren();
-    const obj = { children };
-    setData({ ...globalData, [type]: obj });
+    const array = [...data];
+    array.push(getTempDataSkeleton()[type]);
+    setData({ ...mainData, [type]: array });
     setState('active');
   }
 
-  function exitEdit() {
-    setSave(undefined);
-    setIsEditting(false);
-  }
-
-  function cancelEdit() {
-    const obj = { ...data };
-    obj.children[index] = save;
-    exitEdit();
-    setState('setup');
-    setData({ ...globalData, [type]: obj });
-  }
-
+  // Cancel button Functionality
   function cancelHandler() {
-    if (isEditting) {
-      cancelEdit();
-      return;
+    const curIndex = (isEditting) ? index : data.length - 1;
+    const array = [...data];
+    if (!isEditting) {
+      array.splice(curIndex, 1);
+      setData({ ...mainData, [type]: array });
+    } else if (isEditting) {
+      array[curIndex] = save;
+      setData({ ...mainData, [type]: array });
     }
-    const { children } = data;
-    const lastIndex = children.length - 1;
-    children.splice(lastIndex, 1);
-    const obj = { children };
-    setData({ ...globalData, [type]: obj });
-    setState('setup');
+    resetStates();
   }
 
   // Capitalize first letter
@@ -90,22 +85,25 @@ export default function ExperienceForm({
   }
 
   // Retrieve Items Function
-  function retrieveItems() {
-    return data.children[index];
+  function retrieveItems(i) {
+    return data[i];
   }
 
   // Create Item from Input
   function confirmInput() {
-    const check = getTempDataSkeleton()[type];
-    if (JSON.stringify(retrieveItems(index)) === JSON.stringify(check)) {
-      const { children } = data;
-      children.splice(index, 1);
-      const newDataObject = { children };
-      setData({ ...globalData, [type]: newDataObject });
-      setState('setup');
+    const curIndex = (index !== undefined) ? index : data.length - 1;
+    const emptyData = JSON.stringify(getTempDataSkeleton()[type]);
+    const curItems = JSON.stringify(data[curIndex]);
+    const children = [...data];
+
+    if (emptyData === curItems) {
+      children.splice(curIndex, 1);
+    } else {
+      children[curIndex] = tempData;
     }
-    setIsEditting(false);
-    setState('setup');
+
+    setData({ ...mainData, [type]: children });
+    resetStates();
   }
 
   return (
@@ -115,12 +113,13 @@ export default function ExperienceForm({
       </div>
       {state === 'setup' && (
         <div className="form-main">
-          {data.children.length > 0 && (
+          {data.length > 0 && (
           <>
-            {data.children.map((item) => (
+            {data.map((item, idx) => (
               <DisplayShield
-                key={item.id}
-                index={item.id}
+                // eslint-disable-next-line react/no-array-index-key
+                key={idx}
+                index={idx}
                 handlers={{
                   retrieveItems,
                   setState,
@@ -137,9 +136,9 @@ export default function ExperienceForm({
           </>
           )}
 
-          {data.children.length < maxDisplayShields && (
+          {data.length < maxDisplayShields && (
           <Button
-            handler={{ addHandler }}
+            handler={addHandler}
             className="addBtn"
             text="Add"
           />
@@ -149,7 +148,7 @@ export default function ExperienceForm({
       {state === 'active' && (
         <div className="form-main">
           {returnInputs(inputSkeleton[type])
-            .map((item) => {
+            .map((item, idx) => {
               const input = returnInputs(item);
               const {
                 title, title1, title2, name, name1, name2, inputType, inputType1, inputType2,
@@ -158,38 +157,41 @@ export default function ExperienceForm({
               if (input.length <= 3) {
                 return (
                   <InputSingle
-                    key={item.id}
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={idx}
                     title={title}
                     name={name}
                     type={inputType}
                     data={isEditting ? tempData : data}
-                    index={item.id}
-                    handler={{ inputHandler }}
+                    index={idx}
+                    handler={inputHandler}
                   />
                 );
               }
               return (
                 <InputDouble
-                  key={item.id}
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={idx}
                   title1={title1}
                   title2={title2}
                   name1={name1}
                   name2={name2}
+                  index={idx}
                   data={isEditting ? tempData : data}
                   type1={inputType1}
                   type2={inputType2}
-                  handler={{ inputHandler }}
+                  handler={inputHandler}
                 />
               );
             })}
           <div className="buttonContainer">
             <Button
-              handler={{ cancelHandler }}
+              handler={cancelHandler}
               className="cancelBtn"
               text="Cancel"
             />
             <Button
-              handler={{ confirmInput }}
+              handler={confirmInput}
               className="confirmBtn"
               text="Confirm"
             />
@@ -202,7 +204,18 @@ export default function ExperienceForm({
 }
 
 ExperienceForm.propTypes = {
-  globalData: PropTypes.object,
+  mainData: PropTypes.shape({
+
+  }),
+  handlers: PropTypes.shape({
+    forceRender: PropTypes.func,
+    setData: PropTypes.func,
+  }),
   type: PropTypes.string,
-  handlers: PropTypes.object,
+};
+
+ExperienceForm.defaultProps = {
+  mainData: {},
+  handlers: {},
+  type: 'general',
 };

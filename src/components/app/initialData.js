@@ -1,13 +1,7 @@
 const initialData = {
-  general: {
-    children: [],
-  },
-  education: {
-    children: [],
-  },
-  work: {
-    children: [],
-  },
+  general: [],
+  education: [],
+  work: [],
 };
 
 export default initialData;

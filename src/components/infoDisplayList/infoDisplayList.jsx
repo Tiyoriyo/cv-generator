@@ -1,38 +1,34 @@
-import InfoDisplay from '../infoDisplay/infoDisplay';
+/* eslint-disable react/no-array-index-key */
+import React from 'react';
 import PropTypes from 'prop-types';
-import './infoDisplayList.css'
+import InfoDisplay from '../infoDisplay/infoDisplay';
+import './infoDisplayList.css';
 
 export default function InfoDisplayList({
-    data,
-    type
+  data,
+  type,
 }) {
+  const dataObj = data[type];
+  const header = (type === 'education') ? 'Education' : 'Work';
 
-    const dataObj = data[type];
-    const header = (type === 'education') ? 'Education' : 'Work';
-
-
+  if (dataObj.length > 0) {
     return (
-        <>
-            {dataObj.children.length > 0 && (
-                <div className="info-display">
-                    <h2 className='info-header'>{header}</h2>
-                    {dataObj.children.map((item, index) => {
-                        return (
-                            <InfoDisplay
-                                key={index}
-                                type={type}
-                                item={item}
-                                index={index}
-                            />
-                        )
-                    })}
-                </div>
-            )}
-        </>
-    )
+      <div className="info-display">
+        <h2 className="info-header">{header}</h2>
+        {dataObj.map((item, ind) => (
+          <InfoDisplay
+            key={ind}
+            type={type}
+            item={item}
+            index={ind}
+          />
+        ))}
+      </div>
+    );
+  }
 }
 
 InfoDisplayList.propTypes = {
-    data: PropTypes.object,
-    type: PropTypes.string
-}
+  data: PropTypes.object,
+  type: PropTypes.string,
+};
