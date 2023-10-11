@@ -11,7 +11,6 @@ export default function InputDouble({
   handler,
   index,
   data,
-  isDisabled,
 }) {
   return (
     <div className="input-field-double noselect">
@@ -21,7 +20,6 @@ export default function InputDouble({
         handler={handler}
         index={index}
         data={data}
-        isDisabled={isDisabled}
       />
       <InputSingle
         title={title2}
@@ -29,7 +27,6 @@ export default function InputDouble({
         handler={handler}
         index={index}
         data={data}
-        isDisabled={isDisabled}
       />
     </div>
   );
@@ -46,5 +43,14 @@ InputDouble.propTypes = {
     PropTypes.object,
     PropTypes.array,
   ]),
-  isDisabled: PropTypes.bool,
+};
+
+InputDouble.defaultProps = {
+  title1: '',
+  title2: '',
+  name1: '',
+  name2: '',
+  index: null,
+  handler: () => {},
+  data: [],
 };

@@ -7,42 +7,19 @@ export default function FormBar({
   data,
   handlers,
 }) {
-  const {
-    dataUpdate, dataSubmit, forceRender, setData,
-  } = handlers;
+  const items = ['general', 'education', 'work'];
 
   return (
     <div className="formbar">
-      <ExperienceForm
-        mainData={data}
-        type="general"
-        handlers={{
-          dataUpdate,
-          dataSubmit,
-          forceRender,
-          setData,
-        }}
-      />
-      <ExperienceForm
-        mainData={data}
-        type="education"
-        handlers={{
-          dataUpdate,
-          dataSubmit,
-          forceRender,
-          setData,
-        }}
-      />
-      <ExperienceForm
-        mainData={data}
-        type="work"
-        handlers={{
-          dataUpdate,
-          dataSubmit,
-          forceRender,
-          setData,
-        }}
-      />
+      {items.map((item, index) => (
+        <ExperienceForm
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          mainData={data}
+          handlers={handlers}
+          type={item}
+        />
+      ))}
     </div>
   );
 }
@@ -50,8 +27,6 @@ export default function FormBar({
 FormBar.propTypes = {
   data: PropTypes.shape({}),
   handlers: PropTypes.shape({
-    dataUpdate: PropTypes.func,
-    dataSubmit: PropTypes.func,
     forceRender: PropTypes.func,
     setData: PropTypes.func,
   }),
