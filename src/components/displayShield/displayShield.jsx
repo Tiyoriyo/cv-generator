@@ -13,16 +13,16 @@ export default function DisplayShield({
   item,
 }) {
   const {
-    setState, setTempData, retrieveItems, setIsEditting, setSave, setIndex, forceRender,
+    setState, setTempData, setIsEditting, setSave, setIndex, forceRender,
   } = handlers;
   const name = item.school || item.company || 'Info';
 
   function editItem() {
-    setState('active');
-    setSave({ ...retrieveItems(index) });
-    setTempData({ ...retrieveItems(index) });
+    setTempData({ ...data[index] });
+    setSave({ ...data[index] });
     setIndex(index);
     setIsEditting(true);
+    setState('active');
   }
 
   function deleteItem() {

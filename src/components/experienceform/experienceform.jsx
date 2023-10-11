@@ -34,55 +34,62 @@ export default function ExperienceForm({
     setState('setup');
   }
 
-  // Sets main data based on new input values
-  function inputHandler(e) {
-    const i = (isEditting) ? index : data.length - 1;
-    const children = [...data];
-    const inputFields = children[i];
+  // Input Handler
+  const inputHandler = (e) => {
+    const idx = (isEditting) ? index : data.length - 1;
+    const newChildren = [...data];
+    const inputFields = newChildren[idx];
     inputFields[e.target.name] = e.target.value;
+    setData({ ...mainData, [type]: newChildren });
+  };
 
-    setData({ ...mainData, [type]: children });
-    setTempData({ ...inputFields });
-  }
+  // Input Handler for edit mode
+  const tempDataHandler = (e) => {
+    const curTempData = { ...tempData, [e.target.name]: e.target.value };
+    const newChildren = [...data];
+    newChildren[index] = curTempData;
+    setTempData(curTempData);
+    setData({ ...mainData, [type]: newChildren });
+  };
 
-  // Add Button Functionality
-  function addHandler() {
-    const array = [...data];
-    array.push(getTempDataSkeleton()[type]);
-    setData({ ...mainData, [type]: array });
+  // Add Item handler
+  const addHandler = () => {
+    const newChildren = [...data];
+    const dataTemplate = { ...getTempDataSkeleton()[type] };
+    newChildren.push(dataTemplate);
+    setData({ ...mainData, [type]: newChildren });
     setState('active');
-  }
+  };
 
-  // Cancel button Functionality
-  function cancelHandler() {
-    const curIndex = (isEditting) ? index : data.length - 1;
-    const array = [...data];
-    if (!isEditting) {
-      array.splice(curIndex, 1);
-      setData({ ...mainData, [type]: array });
-    } else if (isEditting) {
-      array[curIndex] = save;
-      setData({ ...mainData, [type]: array });
+  // Confirm Input Data handler
+  const confirmInput = () => {
+    const idx = (isEditting) ? index : data.length - 1;
+    const dataString = JSON.stringify(data[idx]);
+    const emptyDataString = JSON.stringify(getTempDataSkeleton()[type]);
+
+    if (dataString === emptyDataString) {
+      const newChildren = [...data];
+      newChildren.splice(idx, 1);
+      setData({ ...mainData, [type]: newChildren });
     }
+
     resetStates();
-  }
+  };
 
-  // Create Item from Input
-  function confirmInput() {
-    const curIndex = (index !== undefined) ? index : data.length - 1;
-    const emptyData = JSON.stringify(getTempDataSkeleton()[type]);
-    const curItems = JSON.stringify(data[curIndex]);
-    const children = [...data];
+  // Cancel Input Data
+  const cancelHandler = () => {
+    const idx = (isEditting) ? index : data.length - 1;
+    const newChildren = [...data];
 
-    if (emptyData === curItems) {
-      children.splice(curIndex, 1);
+    if (isEditting) {
+      newChildren[idx] = save;
     } else {
-      children[curIndex] = tempData;
+      newChildren.splice(idx, 1);
     }
 
-    setData({ ...mainData, [type]: children });
+    setData({ ...mainData, [type]: newChildren });
     resetStates();
-  }
+  };
 
   // Return queue list for map function within state 'active' render
   function returnInputs(obj) {
@@ -101,11 +108,6 @@ export default function ExperienceForm({
     return result;
   }
 
-  // Retrieve Items Function
-  function retrieveItems(i) {
-    return data[i];
-  }
-
   return (
     <form className="form noselect">
       <div className="form-header">
@@ -121,7 +123,6 @@ export default function ExperienceForm({
                 key={idx}
                 index={idx}
                 handlers={{
-                  retrieveItems,
                   setState,
                   setIsEditting,
                   setTempData,
@@ -164,7 +165,7 @@ export default function ExperienceForm({
                     type={inputType}
                     data={isEditting ? tempData : data}
                     index={idx}
-                    handler={inputHandler}
+                    handler={isEditting ? tempDataHandler : inputHandler}
                   />
                 );
               }
@@ -180,7 +181,7 @@ export default function ExperienceForm({
                   data={isEditting ? tempData : data}
                   type1={inputType1}
                   type2={inputType2}
-                  handler={inputHandler}
+                  handler={isEditting ? tempDataHandler : inputHandler}
                 />
               );
             })}
@@ -204,9 +205,7 @@ export default function ExperienceForm({
 }
 
 ExperienceForm.propTypes = {
-  mainData: PropTypes.shape({
-
-  }),
+  mainData: PropTypes.shape({}),
   handlers: PropTypes.shape({
     forceRender: PropTypes.func,
     setData: PropTypes.func,

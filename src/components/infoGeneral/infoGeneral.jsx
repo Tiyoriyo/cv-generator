@@ -38,5 +38,11 @@ export default function InfoGeneral({
 }
 
 InfoGeneral.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.shape({
+    general: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object])),
+  }),
+};
+
+InfoGeneral.defaultProps = {
+  data: {},
 };

@@ -29,6 +29,11 @@ export default function InfoDisplayList({
 }
 
 InfoDisplayList.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.shape({}),
   type: PropTypes.string,
+};
+
+InfoDisplayList.defaultProps = {
+  data: {},
+  type: '',
 };

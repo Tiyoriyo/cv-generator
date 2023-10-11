@@ -1,7 +1,5 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/require-default-props */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
+import PropTypes from 'prop-types';
 import './input.css';
 
 export default function InputSingle({
@@ -13,11 +11,12 @@ export default function InputSingle({
 }) {
   return (
     <div className="input-field noselect" autoComplete="off">
-      <label className="input-label">
+      <label className="input-label" htmlFor={name}>
         {title}
       </label>
       {type === 'textarea' && (
         <textarea
+          id={name}
           className="input-box detailsTextArea"
           name={name}
           value={data[name]}
@@ -27,6 +26,7 @@ export default function InputSingle({
       )}
       {type !== 'textarea' && (
         <input
+          id={name}
           className="input-box"
           name={name}
           value={data[name]}
@@ -36,3 +36,22 @@ export default function InputSingle({
     </div>
   );
 }
+
+InputSingle.propTypes = {
+  title: PropTypes.string,
+  name: PropTypes.string,
+  handler: PropTypes.func,
+  data: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
+  type: PropTypes.string,
+};
+
+InputSingle.defaultProps = {
+  title: '',
+  name: '',
+  handler: () => {},
+  data: [],
+  type: '',
+};
