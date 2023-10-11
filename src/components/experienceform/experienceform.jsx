@@ -25,17 +25,6 @@ export default function ExperienceForm({
   const maxDisplayShields = (type === 'work') ? 2 : 1;
   const { forceRender, setData } = handlers;
 
-  // Sets main data based on new input values
-  function inputHandler(e) {
-    const i = (isEditting) ? index : data.length - 1;
-    const children = [...data];
-    const inputFields = children[i];
-    inputFields[e.target.name] = e.target.value;
-
-    setData({ ...mainData, [type]: children });
-    setTempData({ ...inputFields });
-  }
-
   // Reset States
   function resetStates() {
     setSave(undefined);
@@ -55,28 +44,6 @@ export default function ExperienceForm({
     return queue;
   }
 
-  // Add Button Functionality
-  function addHandler() {
-    const array = [...data];
-    array.push(getTempDataSkeleton()[type]);
-    setData({ ...mainData, [type]: array });
-    setState('active');
-  }
-
-  // Cancel button Functionality
-  function cancelHandler() {
-    const curIndex = (isEditting) ? index : data.length - 1;
-    const array = [...data];
-    if (!isEditting) {
-      array.splice(curIndex, 1);
-      setData({ ...mainData, [type]: array });
-    } else if (isEditting) {
-      array[curIndex] = save;
-      setData({ ...mainData, [type]: array });
-    }
-    resetStates();
-  }
-
   // Capitalize first letter
   function getTitle() {
     const title = type;
@@ -87,23 +54,6 @@ export default function ExperienceForm({
   // Retrieve Items Function
   function retrieveItems(i) {
     return data[i];
-  }
-
-  // Create Item from Input
-  function confirmInput() {
-    const curIndex = (index !== undefined) ? index : data.length - 1;
-    const emptyData = JSON.stringify(getTempDataSkeleton()[type]);
-    const curItems = JSON.stringify(data[curIndex]);
-    const children = [...data];
-
-    if (emptyData === curItems) {
-      children.splice(curIndex, 1);
-    } else {
-      children[curIndex] = tempData;
-    }
-
-    setData({ ...mainData, [type]: children });
-    resetStates();
   }
 
   return (
