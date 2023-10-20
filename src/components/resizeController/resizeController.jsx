@@ -17,7 +17,6 @@ export default function ResizeController({ fontSize, fontHandler }) {
 
   return (
     <div className="resize-controller-container">
-
       <div className="resize-controller-header">
         Font Resize
       </div>
