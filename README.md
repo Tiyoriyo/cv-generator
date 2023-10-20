@@ -19,3 +19,6 @@ This project was my first experience with React, and while it was challenging at
 - CSS: Styles the components and CV.
 - HTML: Defines the structure of the application.
 
+## Live Demo 🚀
+
+You can check out the live demo of the CV Generator Application [here](https://6532592cf291b112a1287866--incomparable-youtiao-4b487d.netlify.app/).
