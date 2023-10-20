@@ -60,7 +60,7 @@ const inputSkeleton = {
     },
     details: {
       title: 'Details',
-      name: 'workDetails',
+      name: 'details',
       inputType: 'textarea',
     },
   },

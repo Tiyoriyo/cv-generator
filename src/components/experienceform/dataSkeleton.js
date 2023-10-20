@@ -16,7 +16,7 @@ const getTempDataSkeleton = () => ({
   work: {
     company: '',
     title: '',
-    workDetails: '',
+    details: '',
     workFrom: '',
     workTo: '',
     workLocation: '',

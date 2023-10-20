@@ -15,3 +15,9 @@
     box-shadow: 0 0 15px rgb(0, 0, 0, 0.2);
     background-color: white;
 }
+
+.cv-main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

@@ -36,7 +36,9 @@ export default function InfoDisplay({
           )}
         </div>
       </div>
+      {item.details && (
       <p className="experience-details">{item.details}</p>
+      )}
     </div>
   );
 }

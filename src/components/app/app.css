@@ -1,4 +1,7 @@
 .main {
     display: flex;
     flex: auto;
+    justify-content: center;
+    height: 100vh;
+    position: relative;
 }

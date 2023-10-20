@@ -5,21 +5,26 @@ import InfoGeneral from '../infoGeneral/infoGeneral';
 
 import './previewcv.css';
 
-export default function PreviewCV({ data }) {
+export default function PreviewCV({ data, fontSize }) {
   return (
     <div className="preview-container">
       <div className="preview-page">
         <InfoGeneral
           data={data}
+          fontSize={fontSize}
         />
-        <InfoDisplayList
-          data={data}
-          type="education"
-        />
-        <InfoDisplayList
-          data={data}
-          type="work"
-        />
+        <div className="cv-main-content">
+          <InfoDisplayList
+            data={data}
+            type="education"
+            fontSize={fontSize}
+          />
+          <InfoDisplayList
+            data={data}
+            type="work"
+            fontSize={fontSize}
+          />
+        </div>
       </div>
     </div>
   );
