@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './resizeController.css';
 
 export default function ResizeController({ fontSize, fontHandler }) {
@@ -21,17 +22,28 @@ export default function ResizeController({ fontSize, fontHandler }) {
         Font Resize
       </div>
       <div className="resize-controller-content">
-        <p>
-          Font Size:
-          {' '}
-          {`${fontSize}rem`}
-        </p>
+        <div className="font-p">
+          <p className="font-p-header">Font Size</p>
+          <p className="font-p-content">
+            {`- ${fontSize}rem`}
+          </p>
+        </div>
         <div className="fontBtn-container">
           <button type="button" className="fontBtn" onClick={fontSizeController}>-</button>
-          <button type="button" className="fontBtn" onClick={fontSizeController}>+</button>
+          <button type="button" className="fontBtn" onClick={fontSizeController}>&#43;</button>
         </div>
       </div>
     </div>
 
   );
 }
+
+ResizeController.propTypes = {
+  fontSize: PropTypes.number,
+  fontHandler: PropTypes.func,
+};
+
+ResizeController.defaultProps = {
+  fontSize: 0.9,
+  fontHandler: {},
+};

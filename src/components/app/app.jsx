@@ -8,7 +8,7 @@ import ResizeController from '../resizeController/resizeController';
 export default function App() {
   const [data, setData] = useState(initialData);
   const [key, setKey] = useState(0);
-  const [curFontSize, setCurFontSize] = useState(1);
+  const [curFontSize, setCurFontSize] = useState(0.9);
 
   function forceRender() {
     setKey(key + 1);

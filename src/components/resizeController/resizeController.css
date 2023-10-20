@@ -2,14 +2,14 @@
     margin: 1rem;
     box-shadow: 0 0 15px rgb(0, 0, 0, 0.2);
     height: max-content;
-    width: 15rem;
+    width: 11rem;
 }
 
 .resize-controller-header {
     background-color: rgb(255, 96, 96);
     color: white;
     font-weight: bold;
-    padding: 1rem;
+    padding: 0.7rem;
 }
 
 .resize-controller-content {
@@ -20,6 +20,7 @@
 
 .fontBtn-container {
     display: flex;
+    align-items: center;
     gap: 0.5rem;
     margin-left: auto;
 }
@@ -31,4 +32,27 @@
     border: none;
     width: 1rem;
     height: 1rem;
+    background-color: rgb(255, 96, 96);
+    color: white;
+    font-weight: bold;
+    display: flex;
+    box-shadow: 2px 2px 0px rgb(163, 163, 163);
+    /* text-align: center; */
+}
+
+.fontBtn:hover {
+    background-color: rgb(255, 118, 118);
+}
+
+.font-p {
+    display: flex;
+    flex-direction: column;
+}
+
+.font-p-header {
+    font-family: monospace;
+}
+
+.font-p-content {
+    font-family: monospace;
 }
